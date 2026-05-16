@@ -40,14 +40,20 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
-@app.exception_handler(Exception)
-async def generic_exception_handler(request: Request, exc: Exception):
-    #captura qualquer erro inesperado e retorna JSON em vez de traceback
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    #retorna erros de validação de forma legível
+    errors = []
+    for error in exc.errors():
+        errors.append({
+            "campo": str(error.get("loc", "")),
+            "mensagem": error.get("msg", "")
+        })
     return JSONResponse(
-        status_code=500,
+        status_code=422,
         content={
-            "detail": "Erro interno do servidor.",
-            "type": type(exc).__name__
+            "detail": "Dados inválidos.",
+            "errors": errors
         }
     )
 
@@ -63,6 +69,6 @@ app.include_router(characters.router)
 def raiz():
     return {
         "status": "online",
-        "mensagem": "Bem-vindo à API de RPG de Mesa! 🐉",
+        "mensagem": "Bem-vindo à API de RPG de Mesa!",
         "docs": "http://localhost:8000/docs"
     }
