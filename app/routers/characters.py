@@ -44,20 +44,24 @@ def create_character(
 
 @router.get("/all", response_model=List[CharacterResponse])
 def list_all_characters(
+    skip: int = 0,
+    limit: int = 20,
     db: Session = Depends(get_db),
     admin: User = Depends(get_current_admin)
 ):
     #admins podem ver todos os personagens do sistema
-    return db.query(Character).all()
+    return db.query(Character).offset(skip).limit(limit).all()
 
 
 @router.get("/", response_model=List[CharacterResponse])
 def list_my_characters(
+    skip: int = 0,
+    limit: int = 20,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
     #cada jogador só vê seus próprios personagens
-    return db.query(Character).filter(Character.user_id == current_user.id).all()
+    return db.query(Character).filter(Character.user_id == current_user.id).offset(skip).limit(limit).all()
 
 
 @router.get("/{character_id}", response_model=CharacterResponse)

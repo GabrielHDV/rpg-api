@@ -33,11 +33,13 @@ def create_campaign(
 
 @router.get("/", response_model=List[CampaignResponse])
 def list_campaigns(
+    skip: int = 0,
+    limit: int = 20,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    #qualquer usuário logado pode ver as campanhas
-    return db.query(Campaign).all()
+    #skip e limit pra paginar os resultados
+    return db.query(Campaign).offset(skip).limit(limit).all()
 
 
 @router.get("/{campaign_id}", response_model=CampaignResponse)

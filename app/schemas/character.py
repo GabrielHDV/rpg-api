@@ -1,10 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from datetime import datetime
 from typing import Optional
 
 
 class CharacterCreate(BaseModel):
-    #dados necessários para criar um personagem
     name: str
     race: str
     char_class: str
@@ -12,9 +11,24 @@ class CharacterCreate(BaseModel):
     backstory: Optional[str] = None
     campaign_id: Optional[int] = None
 
+    @field_validator("level")
+    @classmethod
+    def level_valido(cls, v):
+        #nível deve ser entre 1 e 20
+        if not 1 <= v <= 20:
+            raise ValueError("Nível deve ser entre 1 e 20.")
+        return v
+
+    @field_validator("name", "race", "char_class")
+    @classmethod
+    def campos_nao_vazios(cls, v):
+        #nenhum campo de texto pode ser enviado vazio
+        if not v.strip():
+            raise ValueError("Este campo não pode ser vazio.")
+        return v.strip()
+
 
 class CharacterUpdate(BaseModel):
-    #todos opcionais pois o jogador pode atualizar só o que quiser
     name: Optional[str] = None
     race: Optional[str] = None
     char_class: Optional[str] = None
@@ -22,9 +36,15 @@ class CharacterUpdate(BaseModel):
     backstory: Optional[str] = None
     campaign_id: Optional[int] = None
 
+    @field_validator("level")
+    @classmethod
+    def level_valido(cls, v):
+        if v is not None and not 1 <= v <= 20:
+            raise ValueError("Nível deve ser entre 1 e 20.")
+        return v
+
 
 class CharacterResponse(BaseModel):
-    #o que a API retorna ao consultar um personagem
     id: int
     name: str
     race: str
@@ -36,3 +56,4 @@ class CharacterResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
+
