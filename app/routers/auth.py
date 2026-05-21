@@ -1,17 +1,22 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse, LoginRequest, TokenResponse
 from app.auth.security import hash_password, verify_password, create_access_token
+from app.services.email import enviar_email_boas_vindas
 
 router = APIRouter(prefix="/auth", tags=["Autenticação"])
 
 
 @router.post("/register", response_model=UserResponse, status_code=201)
-def register(user_data: UserCreate, db: Session = Depends(get_db)):
-    # verifica se o email já está em uso
+async def register(
+    user_data: UserCreate,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    #verifica se o email já está em uso
     existing = db.query(User).filter(User.email == user_data.email).first()
     if existing:
         raise HTTPException(
@@ -30,6 +35,14 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    #envia email de boas vindas em background (não trava a resposta)
+    background_tasks.add_task(
+        enviar_email_boas_vindas,
+        new_user.name,
+        new_user.email
+    )
+
     return new_user
 
 
