@@ -1,5 +1,13 @@
 # ⚔️ RPG de Mesa API
 
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Pytest](https://img.shields.io/badge/Tests-20%20Passed-success)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-Integrated-blueviolet)
+
 API REST para gerenciamento de campanhas e personagens de RPG de Mesa, desenvolvida com Python + FastAPI.
 
 ---
