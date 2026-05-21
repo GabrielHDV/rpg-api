@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -8,6 +8,7 @@ from app.models.campaign import Campaign, CampaignStatus
 from app.models.user import User, UserRole
 from app.schemas.character import CharacterCreate, CharacterUpdate, CharacterResponse
 from app.auth.dependencies import get_current_user, get_current_admin
+from app.services.cloudinary import upload_imagem_personagem
 
 router = APIRouter(prefix="/characters", tags=["Personagens"])
 
@@ -40,6 +41,33 @@ def create_character(
     db.commit()
     db.refresh(new_character)
     return new_character
+
+
+@router.post("/{character_id}/upload-imagem", response_model=CharacterResponse)
+async def upload_imagem(
+    character_id: int,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    #busca o personagem e verifica se pertence ao usuário
+    character = db.query(Character).filter(Character.id == character_id).first()
+    if not character:
+        raise HTTPException(status_code=404, detail="Personagem não encontrado.")
+    if current_user.role != UserRole.admin and character.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Acesso negado.")
+
+    #valida se é uma imagem
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="O arquivo deve ser uma imagem.")
+
+    #faz o upload para o Cloudinary e salva a URL
+    conteudo = await file.read()
+    url = await upload_imagem_personagem(conteudo, character_id)
+
+    db.commit()
+    db.refresh(character)
+    return character
 
 
 @router.get("/all", response_model=List[CharacterResponse])

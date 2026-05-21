@@ -51,9 +51,10 @@ class CharacterResponse(BaseModel):
     char_class: str
     level: int
     backstory: Optional[str]
+    #url da imagem do personagem (None se não tiver foto)
+    image_url: Optional[str]
     user_id: int
     campaign_id: Optional[int]
     created_at: datetime
 
     model_config = {"from_attributes": True}
-

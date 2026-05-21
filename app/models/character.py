@@ -15,7 +15,10 @@ class Character(Base):
     backstory = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    #a quem pertence esse personagem
+    #url da imagem do personagem no Cloudinary
+    image_url = Column(String(500), nullable=True)
+
+    #quem pertence esse personagem
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     #em qual campanha está (pode ser nulo se ainda não entrou em nenhuma)
@@ -23,4 +26,3 @@ class Character(Base):
 
     owner = relationship("User", back_populates="characters")
     campaign = relationship("Campaign", back_populates="characters")
-

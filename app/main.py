@@ -42,7 +42,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    #retorna erros de validação de forma legível
+    #retorna erros de validação de forma correta
     errors = []
     for error in exc.errors():
         errors.append({
