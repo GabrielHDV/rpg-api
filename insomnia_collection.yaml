@@ -1,0 +1,625 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: RPG de Mesa API
+meta:
+  id: wrk_178dbd3876fc4326ba2df3c8b64f0981
+  created: 1779561639723
+  modified: 1779561639723
+  description: ""
+collection:
+  - name: Auth
+    meta:
+      id: fld_325c8a75b59943d98f9612d95a6368a6
+      created: 1779561898995
+      modified: 1779561898995
+      sortKey: -1779561898995
+      description: ""
+    children:
+      - url: "{{ base_url }}/auth/register"
+        name: Registrar
+        meta:
+          id: req_41086e27cde8444e823c4fe6b4599b72
+          created: 1779562043985
+          modified: 1779648001978
+          isPrivate: false
+          description: ""
+          sortKey: -1779562043985
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Frodo Bolseiro",
+              "email": "frodo@shire.com",
+              "password": "oanel123",
+              "role": "admin"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/auth/login"
+        name: Login
+        meta:
+          id: req_23c0cca08e294c1381da635b56c0ec30
+          created: 1779562298085
+          modified: 1779648063240
+          isPrivate: false
+          description: ""
+          sortKey: -1779562298085
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "frodo@shire.com",
+              "password": "oanel123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Campanhas
+    meta:
+      id: fld_182069f3dd344affb0d7dbe9c2fafd03
+      created: 1779562420293
+      modified: 1779562420293
+      sortKey: -1779562420293
+      description: ""
+    children:
+      - url: "{{ base_url }}/campaigns/"
+        name: Criar Campanha
+        meta:
+          id: req_d9e164829dc24e6fa5cb672fb40460b1
+          created: 1779562426856
+          modified: 1779562640664
+          isPrivate: false
+          description: ""
+          sortKey: -1779562426856
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "title": "A Maldição do Dragão Negro",
+              "description": "Uma aventura épica nas Montanhas Sombrias",
+              "setting": "Alta Fantasia",
+              "max_players": 5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/campaigns/"
+        name: Listar Campanhas
+        meta:
+          id: req_eef6b34b380a40cfa79ac2cb84437b72
+          created: 1779643576046
+          modified: 1779643610446
+          isPrivate: false
+          description: ""
+          sortKey: -1779643576046
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/campaigns/1"
+        name: Buscar por ID
+        meta:
+          id: req_7d8de138a5944d1992c27701e1e3127e
+          created: 1779643629630
+          modified: 1779643672534
+          isPrivate: false
+          description: ""
+          sortKey: -1779643629630
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/campaigns/1"
+        name: Atualizar Campanha
+        meta:
+          id: req_f7eb17c837744000956bf50cc357a95f
+          created: 1779643692140
+          modified: 1779646392428
+          isPrivate: false
+          description: ""
+          sortKey: -1779643692140
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "status": "recruiting"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/campaigns/1"
+        name: Deletar Campanha
+        meta:
+          id: req_8a31e5241085425e8ac85141d31d25bf
+          created: 1779643751717
+          modified: 1779643809374
+          isPrivate: false
+          description: ""
+          sortKey: -1779643751717
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Personagens
+    meta:
+      id: fld_ea02cbd4ef234ee8b79c44cdd9d43d7e
+      created: 1779563156153
+      modified: 1779563156153
+      sortKey: -1779563156153
+      description: ""
+    children:
+      - url: "{{ base_url }}/characters/"
+        name: Criar Personagem
+        meta:
+          id: req_066e1aca9ef74865a0b468bd4f9ccb43
+          created: 1779563174283
+          modified: 1779648244625
+          isPrivate: false
+          description: ""
+          sortKey: -1779563174283
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Frodo Bolseiro",
+              "race": "Hobbit",
+              "char_class": "Ladino",
+              "level": 1,
+              "backstory": "Sobrinho do Bilbo, carregador do Um Anel.",
+              "campaign_id": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/"
+        name: Meus Personagens
+        meta:
+          id: req_ace5d99d899f4e11b986db91877ac211
+          created: 1779643841626
+          modified: 1779643868581
+          isPrivate: false
+          description: ""
+          sortKey: -1779643841626
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/all"
+        name: Todos os Personagens (admin)
+        meta:
+          id: req_4069558c484c458381ea06361fbd02b6
+          created: 1779643936636
+          modified: 1779643959653
+          isPrivate: false
+          description: ""
+          sortKey: -1779643936636
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/1"
+        name: Buscar por ID
+        meta:
+          id: req_c19c5931792744fda3497ef93f90c4e0
+          created: 1779643967813
+          modified: 1779644006905
+          isPrivate: false
+          description: ""
+          sortKey: -1779643967813
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/1"
+        name: Atualizar Personagem
+        meta:
+          id: req_8705ef742a444bbb9528c760071f3d57
+          created: 1779644023464
+          modified: 1779644078821
+          isPrivate: false
+          description: ""
+          sortKey: -1779644023464
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "level": 5,
+              "backstory": "Sobreviveu às Minas de Moria."
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/1"
+        name: Deletar Personagem
+        meta:
+          id: req_fe481a43a59a45388889a64a9a70efa2
+          created: 1779644090562
+          modified: 1779644125221
+          isPrivate: false
+          description: ""
+          sortKey: -1779644090562
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/characters/2/upload-imagem"
+        name: Upload Imagem
+        meta:
+          id: req_d94114d097f34a5689a01c3412c980e9
+          created: 1779644134640
+          modified: 1779648284429
+          isPrivate: false
+          description: ""
+          sortKey: -1779644134640
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: file
+              value: ""
+              description: ""
+              disabled: false
+              fileName: /home/gread/Downloads/postgis.webp
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Users
+    meta:
+      id: fld_80620a630f5349ff93a87163865e6239
+      created: 1779643235374
+      modified: 1779643235374
+      sortKey: -1779643235374
+      description: ""
+    children:
+      - url: "{{ base_url }}/users/"
+        name: Listar todos
+        meta:
+          id: req_0dc2470bb78648798f7e024459f89692
+          created: 1779643240962
+          modified: 1779643285126
+          isPrivate: false
+          description: ""
+          sortKey: -1779643240962
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/users/me"
+        name: " Meu Perfil"
+        meta:
+          id: req_82533791caad4099a3ef49ec30498b63
+          created: 1779643299123
+          modified: 1779643327881
+          isPrivate: false
+          description: ""
+          sortKey: -1779643299123
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/users/1"
+        name: Buscar por ID
+        meta:
+          id: req_38e256a8d51b4957a014152ca012541f
+          created: 1779643405864
+          modified: 1779643438451
+          isPrivate: false
+          description: ""
+          sortKey: -1779643405864
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/users/me"
+        name: Atualizar Perfil
+        meta:
+          id: req_639eec50815f41e3ac528aad8d80b076
+          created: 1779643453492
+          modified: 1779643494342
+          isPrivate: false
+          description: ""
+          sortKey: -1779643453492
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Gandalf o Branco"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ base_url }}/users/1"
+        name: Deletar Usuário
+        meta:
+          id: req_a8eb3e4a3c844f6fa7c3357a8b7180a5
+          created: 1779643507141
+          modified: 1779647831239
+          isPrivate: false
+          description: ""
+          sortKey: -1779643507141
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{{ token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_23a71b8a1356542d1774b61a1202d13df6e0ebfc
+    created: 1779561639775
+    modified: 1779561639775
+environments:
+  name: Base Environment
+  meta:
+    id: env_23a71b8a1356542d1774b61a1202d13df6e0ebfc
+    created: 1779561639751
+    modified: 1779648080731
+    isPrivate: false
+  data:
+    base_url: http://localhost:8000
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmcm9kb0BzaGlyZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3Nzk2NTE2NjV9.6qs3LejQYPU3c9jJKOrzTYCE3oYKvDC2FqP4lI2YS60
