@@ -1,6 +1,6 @@
 # ⚔️ RPG de Mesa API
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
@@ -286,9 +286,9 @@ rpg-api/
 ├── Dockerfile                 # Imagem Docker da API
 ├── docker-compose.yml         # Configuração dos containers
 ├── requirements.txt           # Dependências do projeto
-├── .env                       # Variáveis de ambiente locais
-├── .gitignore
-└── test.db                    # Banco SQLite usado em testes/local
+├── insomnia_collection.json   # Coleção do Insomnia com todos os endpoints
+├── .env.example               # Exemplo de variáveis de ambiente
+└── .gitignore          
 ```
 
 ---
